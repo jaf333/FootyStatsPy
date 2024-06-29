@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd  # Add this import
-from MyFootballStats.fbref import Fbref
+from FootyStatsPy.fbref import Fbref
 
 class TestFbref(unittest.TestCase):
 
