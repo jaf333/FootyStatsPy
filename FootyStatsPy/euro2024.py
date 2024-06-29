@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 # ChromeDriver 路径
-chrome_driver_path = "/Users/devdev/Desktop/SIDEPROJECTS/FootyStatsPy/chromedriver/chromedriver"
+chrome_driver_path = "/Users/devdev/Desktop/SIDEPROJECTS/FootyStatsPy/chromedriver"
 
 print(f"Using ChromeDriver from path: {chrome_driver_path}")
 
