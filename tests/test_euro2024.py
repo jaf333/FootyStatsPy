@@ -1,5 +1,6 @@
 import unittest
-from MyFootballStats.euro2024 import scrape_euro2024_data
+from FootyStatsPy.euro2024 import scrape_euro2024_data
+import pandas as pd
 
 class TestEuro2024(unittest.TestCase):
 
