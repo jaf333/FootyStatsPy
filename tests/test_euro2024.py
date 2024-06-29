@@ -1,6 +1,6 @@
 import unittest
-from FootyStatsPy.euro2024 import scrape_euro2024_data
 import pandas as pd
+from FootyStatsPy.euro2024 import scrape_euro2024_data
 
 class TestEuro2024(unittest.TestCase):
 
@@ -11,4 +11,3 @@ class TestEuro2024(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
