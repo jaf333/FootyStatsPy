@@ -10,23 +10,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-# ChromeDriver
 # ChromeDriver 路径
-chrome_driver_path = "/Users/devdev/Desktop/SIDEPROJECTS/FootyStatsPy/chromedriver"
+chrome_driver_path = "/Users/devdev/Desktop/SIDEPROJECTS/FootyStatsPy/chromedriver/chromedriver"
+
+print(f"Using ChromeDriver from path: {chrome_driver_path}")
 
 # Configurar ChromeDriver
-service = Service(executable_path=chrome_driver_path)
-
-
 options = Options()
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
-
-driver = webdriver.Chrome(service=service, options=options)
-
-
-
+# Inicializar WebDriver
+try:
+    service = Service(executable_path=chrome_driver_path)
+    driver = webdriver.Chrome(service=service, options=options)
+    print("ChromeDriver initialized successfully.")
+except Exception as e:
+    print(f"Error initializing ChromeDriver: {e}")
 
 # Función para obtener las columnas del DataFrame
 def get_columns_df(soup, table_name):
