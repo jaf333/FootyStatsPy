@@ -13,7 +13,8 @@ setup(
         'pandas',
         'mplsoccer',
         'matplotlib',
-        'Pillow'
+        'Pillow',
+        'lxml'
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
