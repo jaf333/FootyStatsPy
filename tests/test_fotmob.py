@@ -1,5 +1,5 @@
 import unittest
-from MyFootballStats.fotmob import FotMob
+from FootyStatsPy.fotmob import FotMob
 
 class TestFotMob(unittest.TestCase):
 

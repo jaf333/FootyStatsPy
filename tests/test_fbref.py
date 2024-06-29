@@ -1,5 +1,5 @@
 import unittest
-from MyFootballStats.fbref import Fbref
+from FootyStatsPy.fbref import Fbref
 
 class TestFbref(unittest.TestCase):
 
