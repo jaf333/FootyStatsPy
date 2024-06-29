@@ -17,21 +17,33 @@ class Fbref:
         if stat not in self.possible_stats:
             raise ValueError(f"Invalid stat: {stat}. Possible values are: {self.possible_stats}")
 
-        path = f'https://fbref.com/en/comps/{league}/{season}/{stat}/{league}-{season}-Stats' if season else f'https://fbref.com/en/comps/{league}/{stat}/{league}-Stats'
+        path = f'https://fbref.com/en/comps/Big5/{stat}/players/Big-5-European-Leagues-Stats'
         response = requests.get(path, headers=headers)
         soup = BeautifulSoup(response.content, "html.parser")
-        table = soup.find('table', {'id': 'results'})
+        table = soup.find('table')
 
         if table is None:
-            raise ValueError("Could not find the table with id 'results' on the page")
+            raise ValueError(f"Could not find the table on the page {path}")
 
         df = pd.read_html(str(table))[0]
+        df.columns = [' '.join(col).strip() for col in df.columns]
+        df = df.reset_index(drop=True)
+
+        new_columns = []
+        for col in df.columns:
+            if 'level_0' in col:
+                new_col = col.split()[-1]  # takes the last name
+            else:
+                new_col = col
+            new_columns.append(new_col)
+
+        df.columns = new_columns
+        df = df.fillna(0)
+
         if change_columns_names:
             df.columns = df.columns.map(lambda x: x.split('Unnamed: ')[1] if 'Unnamed: ' in x else x)
             if add_page_name:
                 df.columns = [f'{stat}_{col}' for col in df.columns]
-        else:
-            df.columns = df.columns.droplevel(0)
 
         if save_csv:
             today = datetime.now().strftime('%Y-%m-%d')
@@ -44,15 +56,29 @@ class Fbref:
         if stat not in self.possible_stats:
             raise ValueError(f"Invalid stat: {stat}. Possible values are: {self.possible_stats}")
 
-        path = f'https://fbref.com/en/comps/{league}/{season}/{stat}/players/{league}-{season}-Stats' if season else f'https://fbref.com/en/comps/{league}/{stat}/players/{league}-Stats'
+        path = f'https://fbref.com/en/comps/Big5/{stat}/players/Big-5-European-Leagues-Stats'
         response = requests.get(path, headers=headers)
         soup = BeautifulSoup(response.content, "html.parser")
-        table = soup.find('table', {'id': 'results'})
+        table = soup.find('table')
 
         if table is None:
-            raise ValueError("Could not find the table with id 'results' on the page")
+            raise ValueError(f"Could not find the table on the page {path}")
 
         df = pd.read_html(str(table))[0]
+        df.columns = [' '.join(col).strip() for col in df.columns]
+        df = df.reset_index(drop=True)
+
+        new_columns = []
+        for col in df.columns:
+            if 'level_0' in col:
+                new_col = col.split()[-1]  # takes the last name
+            else:
+                new_col = col
+            new_columns.append(new_col)
+
+        df.columns = new_columns
+        df = df.fillna(0)
+
         if add_page_name:
             df.columns = [f'{stat}_{col}' for col in df.columns]
 
@@ -66,8 +92,11 @@ class Fbref:
         print("Starting to scrape all teams data from Fbref...")
         data = pd.DataFrame()
         for stat in self.possible_stats:
-            df = self.get_teams_season_stats(stat, league, season, False, stats_vs, change_columns_names, add_page_name)
-            data = pd.concat([data, df], axis=1)
+            try:
+                df = self.get_teams_season_stats(stat, league, season, False, stats_vs, change_columns_names, add_page_name)
+                data = pd.concat([data, df], axis=1)
+            except ValueError as e:
+                print(e)
 
         if save_csv:
             today = datetime.now().strftime('%Y-%m-%d')
