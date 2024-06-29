@@ -1,4 +1,5 @@
 import unittest
+import pandas as pd
 from FootyStatsPy.fbref import Fbref
 
 class TestFbref(unittest.TestCase):

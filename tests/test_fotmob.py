@@ -1,4 +1,5 @@
 import unittest
+import pandas as pd
 from FootyStatsPy.fotmob import FotMob
 
 class TestFotMob(unittest.TestCase):
