@@ -1,6 +1,6 @@
 import unittest
-import pandas as pd
-from FootyStatsPy.fotmob import FotMob
+import pandas as pd  # Add this import
+from MyFootballStats.fotmob import FotMob
 
 class TestFotMob(unittest.TestCase):
 
@@ -34,4 +34,3 @@ class TestFotMob(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

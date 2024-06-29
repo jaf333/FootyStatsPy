@@ -52,9 +52,7 @@ class FotMob:
         season_id = self.get_season_id(league, season)
         response = requests.get(f'https://www.fotmob.com/api/leagueseasondeepstats?id={league_id}&season={season_id}&type=players&stat={stat}', headers=headers)
         time.sleep(3)
-        df_1 = pd.DataFrame(response.json()['statsData'])
-        df_2 = pd.DataFrame(response.json()['statsData']).statValue.apply(pd.Series)
-        df = pd.concat([df_1, df_2], axis=1)
+        df = pd.DataFrame(response.json()['statsData'])
         return df
 
     def get_teams_stats_season(self, league, season, stat):
@@ -77,9 +75,7 @@ class FotMob:
         season_id = self.get_season_id(league, season)
         response = requests.get(f'https://www.fotmob.com/api/leagueseasondeepstats?id={league_id}&season={season_id}&type=teams&stat={stat}', headers=headers)
         time.sleep(3)
-        df_1 = pd.DataFrame(response.json()['statsData'])
-        df_2 = pd.DataFrame(response.json()['statsData']).statValue.apply(pd.Series)
-        df = pd.concat([df_1, df_2], axis=1)
+        df = pd.DataFrame(response.json()['statsData'])
         return df
 
     def get_match_shotmap(self, match_id):
@@ -136,4 +132,3 @@ class FotMob:
         response = requests.get(f'https://www.fotmob.com/api/matchDetails?matchId={match_id}', headers=headers)
         time.sleep(3)
         return response
-

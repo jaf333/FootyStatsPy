@@ -1,6 +1,6 @@
 import unittest
-import pandas as pd
-from FootyStatsPy.fbref import Fbref
+import pandas as pd  # Add this import
+from MyFootballStats.fbref import Fbref
 
 class TestFbref(unittest.TestCase):
 
@@ -41,4 +41,3 @@ class TestFbref(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
