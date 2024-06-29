@@ -36,18 +36,21 @@ def get_data_fbref(url, table_name):
 
     for table in tables:
         if table_name == "shots_all" and table.get('id') == "shots_all":
+            print(f"Found table with id 'shots_all'")
             for row in table.tbody.find_all('tr'):
                 columns = row.find_all('td')
                 row_data = [col.text for col in columns]
                 df.loc[len(df)] = row_data
 
         elif table_name == "keeper" and "keeper" in str(table.get('id')):
+            print(f"Found keeper table with id {table.get('id')}")
             for row in table.tbody.find_all('tr'):
                 columns = row.find_all('td')
                 row_data = [col.text for col in columns]
                 df.loc[len(df)] = row_data
 
         elif table.get('id') and str(table.get('id')).endswith(table_name):
+            print(f"Found table with id {table.get('id')}")
             for row in table.tbody.find_all('tr'):
                 names = row.find_all('th')
                 player_name = None
